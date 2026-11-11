@@ -1,0 +1,461 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #eee9e2;
+    font-family: Arial, sans-serif;
+    color: #333333;
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.header {
+    background-color: #263b46;
+    color: white;
+    padding: 35px 20px;
+}
+
+
+.header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+
+.header p{
+    font-size: 17px;
+}
+
+
+.main {
+    padding: 30px 20px;
+}
+
+
+.main h2 {
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+
+.main p {
+    line-height: 1.6;
+}
+
+
+.city-selection {
+    margin: 25px 0;
+}
+
+
+.city-selection select {
+    padding: 12px;
+    width: 220px;
+    font-size: 16px;
+    background-color: white;
+    border: 2px solid #83959b;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+
+.room {
+    background-color: #d5c9ba;
+    width: 90%;
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 35px 0;
+    border: 8px solid #b9aa98;
+    box-sizing: border-box;
+}
+
+
+
+
+.window {
+    position: relative;
+    width: 80%;
+    height: 350px;
+    margin: auto;
+    overflow: hidden;
+    border: 12px solid #f4f0e9;
+    box-sizing: border-box;
+    box-shadow: 0 5px 15px #999999;
+}
+
+
+#city-view {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #a9c7d8;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    transition: filter 2s ease;
+}
+
+
+#haze {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(190, 185, 174, 0.35),
+            rgba(130, 125, 115, 0.45)
+        );
+
+    opacity: 0.4;
+
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+
+    transition:
+        opacity 2s ease,
+        background 2s ease,
+        backdrop-filter 2s ease;
+
+    pointer-events: none;
+}
+
+#haze::before,
+#haze::after {
+    content: "";
+    position: absolute;
+    inset: -20%;
+
+    background:
+        radial-gradient(
+            ellipse at 30% 40%,
+            rgba(235, 232, 220, 0.45),
+            transparent 55%
+        ),
+        radial-gradient(
+            ellipse at 75% 65%,
+            rgba(190, 185, 175, 0.4),
+            transparent 60%
+        );
+
+    pointer-events: none;
+}
+
+#haze::before {
+    animation: fog-movement 12s ease-in-out infinite alternate;
+}
+
+#haze::after {
+    opacity: 0.5;
+    animation: fog-movement 18s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes fog-movement {
+    from {
+        transform: translateX(-3%) translateY(1%);
+    }
+
+    to {
+        transform: translateX(3%) translateY(-1%);
+    }
+}
+
+/* Low pollution */
+#haze.low {
+    opacity: 0.12;
+    backdrop-filter: blur(0.5px);
+}
+
+/* Moderate pollution */
+#haze.moderate {
+    opacity: 0.4;
+    backdrop-filter: blur(2px);
+}
+
+/* High pollution */
+#haze.high {
+    opacity: 0.75;
+    backdrop-filter: blur(4px);
+}
+
+/* Very high pollution */
+#haze.very-high {
+    opacity: 0.95;
+    backdrop-filter: blur(6px);
+}
+
+/* Temporary clear window */
+#haze.wiped {
+    opacity: 0 !important;
+    backdrop-filter: blur(0px) !important;
+    -webkit-backdrop-filter: blur(0px) !important;
+}
+
+#haze.wiped::before,
+#haze.wiped::after {
+    opacity: 0;
+    animation: none;
+}
+
+#wipe-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.window-frame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-left: 6px solid #f4f0e9;
+    border-right: 6px solid #f4f0e9;
+    pointer-events: none;
+    z-index: 3;
+}
+
+
+
+
+.window-frame::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    background-color: #f4f0e9;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+}
+
+
+.window-frame::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    background-color: #f4f0e9;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.window-interaction {
+    margin: 25px 0;
+}
+
+
+#wipe-button {
+    background-color: #263b46;
+    color: white;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#wipe-button:hover {
+    background-color: #496573;
+    transform: translateY(-2px);
+}
+
+#wipe-button:active {
+    transform: translateY(0);
+}
+
+#wipe-button:focus-visible,
+.city-selection select:focus-visible {
+    outline: 3px solid #83959b;
+    outline-offset: 3px;
+}
+
+.air-quality-info {
+    background-color: white;
+    width: 80%;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+
+.air-quality-info h3 {
+    font-size: 23px;
+    color: #263b46;
+}
+
+
+#aqi-value {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+#air-quality-message {
+    font-style: italic;
+}
+
+#loading-message {
+    color: #496573;
+    font-style: italic;
+}
+
+#error-message {
+    color: #a33b32;
+    font-weight: bold;
+}
+
+#aqi-category {
+    font-weight: bold;
+}
+
+#city-name {
+    font-weight: bold;
+}
+
+#pm25-value {
+    font-weight: bold;
+}
+
+#data-time {
+    font-size: 13px;
+    color: #777777;
+}
+
+
+.about {
+    background-color: #dcd5cc;
+    padding: 30px 20px;
+    margin: 40px auto;
+    max-width: 800px;
+    box-sizing: border-box;
+}
+
+
+.about h2 {
+    color: #263b46;
+}
+
+
+.footer {
+    background-color: #263b46;
+    color: white;
+    padding: 20px;
+    font-size: 14px;
+}
+
+/*AIR QUALITY DATA VISUAL CHANGES*/
+
+/* Smooth background transitions */
+
+body {
+    transition: background-color 2s ease;
+}
+
+/* Good air quality */
+
+body[data-aqi-level="good"] {
+    background-color: #e6efed;
+}
+
+/* Moderate air quality */
+
+body[data-aqi-level="moderate"] {
+    background-color: #e5e8e2;
+}
+
+/* Unhealthy for sensitive groups */
+
+body[data-aqi-level="sensitive"] {
+    background-color: #e3e1d9;
+}
+
+/* Unhealthy air quality */
+
+body[data-aqi-level="unhealthy"] {
+    background-color: #d8d9d3;
+}
+
+/* Very unhealthy air quality */
+
+body[data-aqi-level="very-unhealthy"] {
+    background-color: #c9cbc7;
+}
+
+/* Hazardous air quality */
+
+body[data-aqi-level="hazardous"] {
+    background-color: #b9bbb8;
+}
+
+/* Loading or unknown AQI */
+
+body[data-aqi-level="unknown"] {
+    background-color: #eee9e2;
+}
+
+/* AQI information panel */
+
+.air-quality-info {
+    transition: background-color 2s ease;
+}
+
+/* AQI number */
+
+#aqi-value {
+    transition: color 1s ease;
+}
+
+/* AQI timestamp */
+
+#data-time {
+    font-size: 12px;
+    color: #777;
+    margin-top: 12px;
+}
+
+/* AQI number colours */
+
+/* Good */
+
+body[data-aqi-level="good"] #aqi-value {
+    color: #36835b;
+}
+
+/* Moderate */
+
+body[data-aqi-level="moderate"] #aqi-value {
+    color: #a58b36;
+}
+
+/* Sensitive groups */
+
+body[data-aqi-level="sensitive"] #aqi-value {
+    color: #bd7535;
+}
+
+/* Unhealthy */
+
+body[data-aqi-level="unhealthy"] #aqi-value {
+    color: #bd4d35;
+}
+
+/* Very unhealthy */
+
+body[data-aqi-level="very-unhealthy"] #aqi-value {
+    color: #985080;
+}
+
+/* Hazardous */
+
+body[data-aqi-level="hazardous"] #aqi-value {
+    color: #873b3b;
+}

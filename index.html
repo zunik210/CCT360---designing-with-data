@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The Window You Can't Open</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+
+    <div class="header">
+        <h1>The Window You Can't Open</h1>
+        <p>What if the air outside was not safe to breathe?</p>
+    </div>
+
+
+    <div class="main">
+        <h2>A Window to the World</h2>
+
+
+        <p>
+            Choose a city and see how air pollution changes the world outside the window.
+        </p>
+
+
+        <div class="city-selection">
+            <label for="city">Choose a city:</label>
+
+
+            <select id="city">
+                <option value="toronto">Toronto</option>
+                <option value="los-angeles">Los Angeles</option>
+                <option value="new-delhi">New Delhi</option>
+            </select>
+        </div>
+
+
+        <div class="room">
+            <div class="window">
+                <div id="city-view"></div>
+                <div id="haze"></div>
+                <div class="window-frame"></div>
+            </div>
+        </div>
+
+
+        <div class="air-quality-info">
+            <h3>Air Quality</h3>
+            <p>City: <span id="city-name">Toronto</span></p>
+            <p>Air Quality Index: <span id="aqi-value">--</span></p>
+            <p>PM2.5: <span id="pm25-value">--</span> µg/m³</p>
+            <p>Air Quality Category: <span id="aqi-category">Waiting for data</span></p>
+            <p id="air-quality-message">Select a city to see its air quality.</p>
+            <p id="loading-message" role="status" hidden>Looking outside...</p>
+            <p id="error-message" role="alert" hidden>Unable to retrieve air-quality data.</p>  
+            <p id="data-time"></p>
+        </div>
+
+        <div class="window-interaction">
+            <button id="wipe-button" type="button">Wipe the Window</button>
+            <p id="wipe-message" aria-live="polite">Try cleaning the window.</p>
+        </div>
+        
+        <div class="about">
+            <h2>What Are You Really Breathing?</h2>
+
+
+            <p>
+                Air pollution is not always visible.
+                Even when the sky looks clear, harmful
+                pollutants may still be present.
+            </p>
+
+
+            <p>
+                You can clean the glass, but you cannot
+                wipe away the pollution outside.
+            </p>
+        </div>
+
+
+    </div>
+
+
+    <div class="footer">
+        <p>CCT360</p>
+        <p>Air quality data from Open-Meteo</p>
+    </div>
+
+
+    <!-- Javascript files-->
+    <script src="api.js"></script>
+    <script src="interactions.js"></script>
+
+
+</body>
+</html>
